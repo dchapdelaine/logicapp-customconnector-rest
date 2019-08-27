@@ -1,0 +1,66 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "ConnectorName": {
+            "type": "string"
+        },
+        "ServiceUrl": {
+            "type": "string"
+        },
+        "Swagger": {
+            "type": "object"
+        },
+        "_artifactsLocationSasToken": {
+            "type": "securestring",
+            "metadata": {
+                "description": "The sasToken required to access _artifactsLocation."
+            },
+            "defaultValue": ""
+        },
+        "_artifactsLocation": {
+            "type": "string",
+            "metadata": {
+                "description": "The base URI where artifacts required by this template are located."
+            },
+            "defaultValue": "https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/201-vm-custom-script-windows/"
+        }
+    },
+    "variables": {
+        "IconUrl": "[uri(parameters('_artifactsLocation'), concat('StringManip.svg', parameters('_artifactsLocationSasToken')))]"
+    },
+    "resources": [
+        {
+            "name": "[parameters('ConnectorName')]",
+            "type": "Microsoft.Web/customApis",
+            "apiVersion": "2016-06-01",
+            "location": "[resourceGroup().location]",
+            "tags": {},
+            "properties": {
+                "connectionParameters": {
+                    "api_key": {
+                        "type": "securestring",
+                        "uiDefinition": {
+                            "displayName": "apiKey",
+                            "description": "The apiKey for this api",
+                            "tooltip": "Provide your apiKey",
+                            "constraints": {
+                                "tabIndex": 2,
+                                "clearText": false,
+                                "required": "true"
+                            }
+                        }
+                    }
+                },
+                "swagger": "[parameters('Swagger')]",
+                "description": "My Custom Connector",
+                "displayName": "[parameters('ConnectorName')]",
+                "iconUri": "[variables('IconUrl')]",
+                "backendService": {
+                    "serviceUrl": "[parameters('serviceUrl')]"
+                },
+                "apiType": "Rest"
+            }
+        }
+    ]
+}

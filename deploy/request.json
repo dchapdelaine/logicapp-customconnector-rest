@@ -1,0 +1,92 @@
+{
+    "location": "centralus",
+    "properties": {
+        "displayName": "ReverseConnector",
+        "description": "This API does fancy string manipulations",
+        "iconUri": "/Content/retail/assets/default-connection-icon.78b6ef73fcb7d8689f673d773d164624.2.svg",
+        "swagger": {
+            "swagger": "2.0",
+            "info": {
+                "description": "This API does fancy string manipulations",
+                "version": "1.0.0",
+                "title": "String Manipulation",
+                "contact": {
+                    "email": "david.chapdelaine@microsoft.com"
+                }
+            },
+            "host": "dchreverse.azurewebsites.net",
+            "basePath": "/api",
+            "schemes": [
+                "https"
+            ],
+            "consumes": [],
+            "produces": [],
+            "paths": {
+                "/reverse": {
+                    "post": {
+                        "summary": "Reverse a body",
+                        "description": "",
+                        "operationId": "reverseBody",
+                        "consumes": [
+                            "text/plain"
+                        ],
+                        "parameters": [
+                            {
+                                "in": "body",
+                                "name": "body",
+                                "description": "Any text to reverse",
+                                "required": true,
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        ],
+                        "responses": {
+                            "405": {
+                                "description": "Invalid input"
+                            }
+                        },
+                        "security": [
+                            {
+                                "api_key": []
+                            }
+                        ]
+                    }
+                }
+            },
+            "definitions": {},
+            "parameters": {},
+            "responses": {},
+            "securityDefinitions": {
+                "api_key": {
+                    "type": "apiKey",
+                    "in": "query",
+                    "name": "code"
+                }
+            },
+            "security": [],
+            "tags": []
+        },
+        "backendService": {
+            "serviceUrl": "https://dchreverse.azurewebsites.net/api"
+        },
+        "brandColor": null,
+        "connectionParameters": {
+            "api_key": {
+                "type": "securestring",
+                "uiDefinition": {
+                    "displayName": "apiKey",
+                    "description": "The apiKey for this api",
+                    "tooltip": "Provide your apiKey",
+                    "constraints": {
+                        "tabIndex": 2,
+                        "clearText": false,
+                        "required": "true"
+                    }
+                }
+            }
+        },
+        "apiType": "Rest",
+        "capabilities": []
+    }
+}
